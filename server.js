@@ -14,6 +14,7 @@ app.use('/api/transactions', router)
 
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);
+require('./routes/Login.js')(app);
 
 //port
 const PORT = process.env.PORT || 5000;
