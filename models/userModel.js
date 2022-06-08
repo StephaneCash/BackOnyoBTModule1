@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
+                notNull: { msg: "Email est un champ obligatoire !" }
             }
         },
         password: {
@@ -21,16 +21,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
+                notNull: { msg: "Password est un champ obligatoire !" }
             }
         },
         token: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
-            }
         },
     })
 

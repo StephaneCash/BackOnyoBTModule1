@@ -1,12 +1,12 @@
 const db = require('../models');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const primaryKey = require('../auth/private_key');
 
 module.exports = (app) => {
     app.post('/api/login', (req, res) => {
-        User.findOne({
-            where: { username: req.body.username }
+        db.users.findOne({
+            where: { email: req.body.email }
         }).then((user => {
  
             if (!user) {

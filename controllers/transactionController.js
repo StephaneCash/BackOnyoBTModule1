@@ -1,11 +1,10 @@
 const db = require('../models');
-const { ValidationError, UniqueConstraintError } = require('sequelize')
+const { ValidationError, UniqueConstraintError } = require('sequelize');
+const auth = require('../auth/auth');
 //créer des modèles principaux
 
 const Transaction = db.transactions;
 const User = db.users;
-
-// Travail principal
 
 // 1. Récupération de toutes les transactions
 

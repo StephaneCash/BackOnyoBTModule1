@@ -1,8 +1,9 @@
 const transactionController = require('../controllers/transactionController');
+const auth = require('../auth/auth')
 
 const router = require('express').Router();
 
-router.get('/', transactionController.getAllTransactions);
+router.get('/all', auth, transactionController.getAllTransactions);
 
 router.get('/:id', transactionController.getOneTransaction);
 

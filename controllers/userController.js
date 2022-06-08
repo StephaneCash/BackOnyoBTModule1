@@ -1,5 +1,6 @@
 const db = require('../models');
 const { ValidationError, UniqueConstraintError } = require('sequelize')
+const bcrypt = require('bcrypt');
 
 // Model
 const User = db.users;
@@ -7,7 +8,20 @@ const User = db.users;
 //Add un user
 const addUser = async (req, res) => {
 
-    User.create(req.body).then(value => {
+    const nom = req.body.nom;
+    const email = req.body.email;
+    const password = await bcrypt.hash(req.body.password, 10);
+    const numTel = req.body.numTel;
+
+    let dataUser = {};
+
+    dataUser.nom = nom;
+    dataUser.email = email;
+    dataUser.password = password;
+    dataUser.numTel = numTel;
+
+
+    User.create(dataUser).then(value => {
         let message = `Utilisateur créé avec succès`;
         res.status(200).json({ message: message, data: value });
     }).catch(err => {
