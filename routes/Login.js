@@ -23,7 +23,7 @@ module.exports = (app) => {
                 const jeton = jwt.sign(
                     { id: user.id },
                     primaryKey,
-                    { expiresIn: '24' }
+                    { expiresIn: "2h" }
                 )
 
                 const message = `L'utilisateur a été connecté avec succès`;
