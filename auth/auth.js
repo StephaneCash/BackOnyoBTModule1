@@ -15,6 +15,7 @@ module.exports = (req, res, next) => {
             if (err) {
                 return res.status(403).json("Votre jeton n'est pas valide " + err);
             } else {
+                console.log('Auth successful : ', user)
                 req.user = user;
                 next();
             }
