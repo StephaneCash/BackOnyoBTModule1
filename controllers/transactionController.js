@@ -24,7 +24,39 @@ const getAllTransactions = async (req, res) => {
 
 const addTransaction = (req, res) => {
 
-    Transaction.create(req.body).then(value => {
+    for (let i = 0; i <= passwordLengh; i++) {
+        let randomNumber = Math.floor(Math.random() * chars.length);
+        password += chars.substring(randomNumber, randomNumber + 1);
+    }
+
+    let tab = password.split('');
+    tab[4] = '-';
+    tab[9] = '-';
+    tab[14] = '-';
+
+    let codeGenere = tab.join().replace(/[,]/g, '');
+
+    let dataTransaction = {};
+
+    let numTel = req.body.numTel;
+    let exp_name = req.body.exp_name;
+    let montant = req.body.montant;
+
+    let chars = "0123456789";
+    let passwordLengh = 16;
+    let password = "";
+
+    dataTransaction.content_code = codeGenere;
+    dataTransaction.reception = 0;
+    dataTransaction.numTel = numTel;
+    dataTransaction.annulation = 0;
+    dataTransaction.exp_name = exp_name;
+    dataTransaction.statut = 1;
+    dataTransaction.montant = montant;
+
+    console.log(dataTransaction)
+
+   /* Transaction.create(dataTransaction).then(value => {
         let message = `Transaction créée avec succès`;
         res.status(200).json({ message: message, data: value });
     }).catch(err => {
@@ -39,7 +71,7 @@ const addTransaction = (req, res) => {
                 message: err.message
             })
         }
-    })
+    })*/
 }
 
 // 3. Récupération d'une transaction

@@ -2,11 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define("transactions", {
         content_code: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Le champ 'Cotent_code' est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Code est un champ obligatoire !" }
-            }
         },
         reception: {
             type: DataTypes.INTEGER,
@@ -41,11 +36,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         statut: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
-            }
         },
     })
 
