@@ -10,11 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         reception: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Le champ 'reception' est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
-            }
         },
         
         numTel: {
@@ -27,19 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         annulation: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
-            }
-        },
-        suppression: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Ceci est un champ obligatoire !" }
-            }
         },
         montant: {
             type: DataTypes.INTEGER,

@@ -34,12 +34,14 @@ db.sequelize = sequelize
 
 db.transactions = require("./transactionModel.js")(sequelize, DataTypes);
 db.users = require("./userModel.js")(sequelize, DataTypes);
+db.categories = require("./categorieTransfertModel.js")(sequelize, DataTypes);
+
 
 db.sequelize.sync({ force: false }).then(() => {
     console.log('Mdels synchronisés ')
 })
 
-// RELATION 1-N
+// RELATION 1-N TRANSACTIONS-USERS
 
 db.users.hasMany(db.transactions, {
     as: 'transactions'
@@ -48,6 +50,17 @@ db.users.hasMany(db.transactions, {
 db.transactions.belongsTo(db.users, {
     foreignKey: 'userId',
     as: 'users'
+})
+
+// RELATION 1-N CATEGORIES-TRANSACTIONS
+
+db.categories.hasMany(db.transactions, {
+    as: 'transactions'
+});
+
+db.transactions.belongsTo(db.users, {
+    foreignKey: 'categorieId',
+    as: 'categorie'
 })
 
 module.exports = db
