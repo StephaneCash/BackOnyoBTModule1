@@ -7,9 +7,11 @@ module.exports = (app) => {
     app.post('/api/login', (req, res) => {
 
         if (req.body.email === "") {
-            return res.status(401).json('Veuillez renseigner une adresse email.');
+            const message = "Veuillez renseigner une adresse email.";
+            return res.status(401).json({ message });
         } else if (req.body.password === '') {
-            return res.status(401).json('Veuillez renseigner un mot de passe.');
+            const message = "Veuillez renseigner un mot de passe.";
+            return res.status(401).json({ message });
         } else {
             db.users.findOne({
                 where: { email: req.body.email }
