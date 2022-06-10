@@ -3,11 +3,15 @@ const auth = require('../auth/auth');
 
 const router = require('express').Router();
 
-router.get('/all', auth, transactionController.getAllTransactions);
+router.get('/', auth, transactionController.getAllTransactions);
 
 router.get('/:id', auth, transactionController.getOneTransaction);
 
-router.post('/add', auth, transactionController.addTransaction);
+router.get('/v1/categories', auth, transactionController.getAllTransactionsAndCategories);
+
+router.get('/v1/users', auth, transactionController.getAllTransactionsUsers);
+
+router.post('/', auth, transactionController.addTransaction);
 
 router.delete('/:id', auth, transactionController.deleteTransaction);
 

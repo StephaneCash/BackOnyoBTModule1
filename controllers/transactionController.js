@@ -1,6 +1,8 @@
 const db = require('../models');
 const { ValidationError, UniqueConstraintError } = require('sequelize');
 const auth = require('../auth/auth');
+const bcrypt = require('bcrypt');
+
 //créer des modèles principaux
 
 const Transaction = db.transactions;
@@ -10,6 +12,11 @@ const User = db.users;
 
 const getAllTransactions = async (req, res) => {
 
+    const data = await Transaction.findAll();
+    res.status(200).json({ status: 200, data: data })
+}
+
+const getAllTransactionsUsers = async (req, res) => {
     const data = await Transaction.findAll({
         include: [{
             model: db.users,
@@ -20,9 +27,24 @@ const getAllTransactions = async (req, res) => {
     res.status(200).json({ status: 200, data: data })
 }
 
+const getAllTransactionsAndCategories = async (req, res) => {
+    const data = await Transaction.findAll({
+        include: [{
+            model: db.categories,
+            as: 'categories'
+        }]
+    })
+
+    res.status(200).json({ data })
+}
+
 // 2. Création d'une transaction
 
 const addTransaction = (req, res) => {
+
+    let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let passwordLengh = 16;
+    let password = "";
 
     for (let i = 0; i <= passwordLengh; i++) {
         let randomNumber = Math.floor(Math.random() * chars.length);
@@ -42,9 +64,6 @@ const addTransaction = (req, res) => {
     let exp_name = req.body.exp_name;
     let montant = req.body.montant;
 
-    let chars = "0123456789";
-    let passwordLengh = 16;
-    let password = "";
 
     dataTransaction.content_code = codeGenere;
     dataTransaction.reception = 0;
@@ -54,9 +73,7 @@ const addTransaction = (req, res) => {
     dataTransaction.statut = 1;
     dataTransaction.montant = montant;
 
-    console.log(dataTransaction)
-
-   /* Transaction.create(dataTransaction).then(value => {
+    Transaction.create(dataTransaction).then(value => {
         let message = `Transaction créée avec succès`;
         res.status(200).json({ message: message, data: value });
     }).catch(err => {
@@ -71,7 +88,7 @@ const addTransaction = (req, res) => {
                 message: err.message
             })
         }
-    })*/
+    })
 }
 
 // 3. Récupération d'une transaction
@@ -114,6 +131,8 @@ module.exports = {
     addTransaction,
     updateTransaction,
     getOneTransaction,
-    deleteTransaction
+    deleteTransaction,
+    getAllTransactionsAndCategories,
+    getAllTransactionsUsers
 }
 

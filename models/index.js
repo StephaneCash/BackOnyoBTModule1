@@ -58,9 +58,9 @@ db.categories.hasMany(db.transactions, {
     as: 'transactions'
 });
 
-db.transactions.belongsTo(db.users, {
-    foreignKey: 'categorieId',
-    as: 'categorie'
+db.transactions.belongsTo(db.categories, {
+    foreignKey: 'categoryId',
+    as: 'categories'
 })
 
 module.exports = db
