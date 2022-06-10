@@ -10,7 +10,10 @@ app.use(express.urlencoded({ extend: true }));
 
 // Routes
 const router = require('./routes/TransactionsRouter.js')
-app.use('/api/transactions', router)
+app.use('/api/transactions', router);
+
+const categoryRouter = require('./routes/CategoryRouter.js');
+app.use('/api/categories', categoryRouter);
 
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);

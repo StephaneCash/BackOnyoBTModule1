@@ -41,6 +41,12 @@ const addUser = async (req, res) => {
 
 // Get all users
 const getAllUsers = async (req, res) => {
+    const data = await User.findAll();
+
+    res.status(200).json({ data })
+}
+
+const getAllUsersAndTransactions = async (req, res) => {
     const data = await User.findAll({
         include: [{
             model: db.transactions,
@@ -64,7 +70,7 @@ const getOneUser = async (req, res) => {
     res.status(200).json({ message: 'L\'utilisateur ' + id + ' a été trouvé avec succès', data: user });
 }
 
-// 4. Mettre à jour du User
+// 4. Mis à jour du User
 
 const updateUser = async (req, res) => {
 
@@ -90,4 +96,5 @@ module.exports = {
     getAllUsers,
     addUser,
     getOneUser,
+    getAllUsersAndTransactions
 }

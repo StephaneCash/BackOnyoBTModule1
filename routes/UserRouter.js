@@ -3,11 +3,13 @@ const auth = require('../auth/auth');
 
 const router = require('express').Router();
 
-router.get('/all', auth, userController.getAllUsers);
+router.get('/', auth, userController.getAllUsers);
 
 router.get('/:id', auth, userController.getOneUser);
 
-router.post('/add', userController.addUser);
+router.get('/v1/transactions', auth, userController.getAllUsersAndTransactions);
+
+router.post('/', userController.addUser);
 
 router.delete('/:id', auth, userController.deleteUser);
 
