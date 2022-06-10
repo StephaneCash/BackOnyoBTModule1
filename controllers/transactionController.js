@@ -72,6 +72,7 @@ const addTransaction = (req, res) => {
     dataTransaction.exp_name = exp_name;
     dataTransaction.statut = 1;
     dataTransaction.montant = montant;
+    dataTransaction.categoryId = req.body.categoryId;
 
     Transaction.create(dataTransaction).then(value => {
         let message = `Transaction créée avec succès`;

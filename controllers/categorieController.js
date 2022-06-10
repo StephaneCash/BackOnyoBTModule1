@@ -41,7 +41,7 @@ const getAllCategory = async (req, res) => {
     let message = `La liste de categories`;
     let status = 200;
 
-    res.status(200).json({ message: message, status: status, data: data });
+    res.status(200).json(data);
 }
 
 // Get all category and transactions
