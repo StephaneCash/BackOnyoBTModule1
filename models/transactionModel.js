@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         reception: {
             type: DataTypes.INTEGER,
         },
-        
+
         numTel: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         statut: {
             type: DataTypes.INTEGER,
+        },
+        devise: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
+                notNull: { msg: "La devise  est un champ obligatoire !" }
+            }
         },
     })
 

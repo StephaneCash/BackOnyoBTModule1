@@ -64,13 +64,13 @@ const addTransaction = (req, res) => {
     let exp_name = req.body.exp_name;
     let montant = req.body.montant;
 
-
     dataTransaction.content_code = codeGenere;
     dataTransaction.reception = 0;
     dataTransaction.numTel = numTel;
     dataTransaction.annulation = 0;
+    dataTransaction.devise = req.body.devise;
     dataTransaction.exp_name = exp_name;
-    dataTransaction.statut = 1;
+    dataTransaction.statut = 0;
     dataTransaction.montant = montant;
     dataTransaction.categoryId = req.body.categoryId;
 
@@ -111,7 +111,7 @@ const getOneTransaction = async (req, res) => {
 const updateTransaction = async (req, res) => {
 
     let id = req.params.id;
-    const transaction = await Transaction.update(req.body, { where: { id_trans: id } })
+    const transaction = await Transaction.update(req.body, { where: { id: id } })
     res.status(200).json({ message: 'La transaction ' + id + ' a étét modifiée avec succès', data: transaction });
 
 }
@@ -121,7 +121,7 @@ const updateTransaction = async (req, res) => {
 const deleteTransaction = async (req, res) => {
 
     let id = req.params.id;
-    let transaction = await Transaction.destroy({ where: { id_trans: id } });
+    let transaction = await Transaction.destroy({ where: { id: id } });
     res.status(200).json({ message: 'La transaction ' + id + ' a étét supprimée avec succès', data: transaction });
 
 }
