@@ -15,6 +15,9 @@ app.use('/api/transactions', router);
 const categoryRouter = require('./routes/CategoryRouter.js');
 app.use('/api/categories', categoryRouter);
 
+const codeGenereRouter = require('./routes/GenerateRouter.js');
+app.use('/api/generates', codeGenereRouter);
+
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);
 require('./routes/Login.js')(app);

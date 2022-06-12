@@ -10,33 +10,44 @@ const addUser = async (req, res) => {
 
     const nom = req.body.nom;
     const email = req.body.email;
-    const password = await bcrypt.hash(req.body.password, 10);
     const numTel = req.body.numTel;
 
-    let dataUser = {};
+    if (nom === '') {
+        return res.status(404).json('Veuillez fournir un nom svp');
+    } else if (email === "") {
+        return res.status(404).json('Veuillez fournir un email svp');
+    } else if (req.body.password === '') {
+        return res.status(404).json('Veuillez fournir un password svp');
+    } else if (numTel === '') {
+        return res.status(404).json('Veuillez fournir un numéro de téléphone svp');
+    } else {
+        let dataUser = {};
 
-    dataUser.nom = nom;
-    dataUser.email = email;
-    dataUser.password = password;
-    dataUser.numTel = numTel;
+        dataUser.nom = nom;
+        dataUser.email = email;
 
+        const password = await bcrypt.hash(req.body.password ? req.body.password : "1234",
+            req.body.password ? 10 : 10);
+        dataUser.password = password;
+        dataUser.numTel = numTel;
 
-    User.create(dataUser).then(value => {
-        let message = `Utilisateur créé avec succès`;
-        res.status(200).json({ message: message, data: value });
-    }).catch(err => {
-        if (err instanceof ValidationError) {
-            return res.status(400).json({
-                message: err.message.split(",\n")
-            })
-        }
+        User.create(dataUser).then(value => {
+            let message = `Utilisateur créé avec succès`;
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
 
-        if (err instanceof UniqueConstraintError) {
-            return res.status(400).json({
-                message: err.message
-            })
-        }
-    })
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+    }
 }
 
 // Get all users

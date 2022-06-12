@@ -35,6 +35,7 @@ db.sequelize = sequelize
 db.transactions = require("./transactionModel.js")(sequelize, DataTypes);
 db.users = require("./userModel.js")(sequelize, DataTypes);
 db.categories = require("./categorieTransfertModel.js")(sequelize, DataTypes);
+db.generates = require('./generateurCode.js')(sequelize, DataTypes);
 
 
 db.sequelize.sync({ force: false }).then(() => {
