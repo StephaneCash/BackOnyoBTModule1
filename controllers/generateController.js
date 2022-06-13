@@ -75,7 +75,7 @@ const getOneCode = async (req, res) => {
     }
     res.status(200).json({ message: 'Le code ' + id + ' a été trouvé avec succès', data: code });
 }
-
+ 
 // 5. Supprimer un user
 
 const deleteCode = async (req, res) => {
