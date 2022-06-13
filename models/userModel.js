@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Password est un champ obligatoire !" }
             }
         },
-        token: {
-            type: DataTypes.STRING,
+        statut: {
+            type: DataTypes.INTEGER,
         },
     })
 
