@@ -36,6 +36,7 @@ db.transactions = require("./transactionModel.js")(sequelize, DataTypes);
 db.users = require("./userModel.js")(sequelize, DataTypes);
 db.categories = require("./categorieTransfertModel.js")(sequelize, DataTypes);
 db.generates = require('./generateurCode.js')(sequelize, DataTypes);
+db.partenaires = require('./partenaireModel.js')(sequelize, DataTypes);
 
 
 db.sequelize.sync({ force: false }).then(() => {
@@ -61,6 +62,17 @@ db.categories.hasMany(db.transactions, {
 
 db.transactions.belongsTo(db.categories, {
     foreignKey: 'categoryId',
+    as: 'categories'
+});
+
+// RELATION 1-N PARTENAIRES-CATEGORIES
+
+db.categories.hasMany(db.partenaires, {
+    as: 'partenaires'
+})
+
+db.partenaires.belongsTo(db.categories, {
+    foreignKey: 'partenaireId',
     as: 'categories'
 })
 
