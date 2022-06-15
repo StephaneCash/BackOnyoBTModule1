@@ -10,6 +10,8 @@ const addUser = async (req, res) => {
 
     const nom = req.body.nom;
     const email = req.body.email;
+    const password = await bcrypt.hash(req.body.password ? req.body.password : "1234",
+        req.body.password ? 10 : 10);
 
     if (nom === '') {
         return res.status(404).json('Veuillez fournir un nom svp');
@@ -18,31 +20,40 @@ const addUser = async (req, res) => {
     } else if (req.body.password === '') {
         return res.status(404).json('Veuillez fournir un password svp');
     } else {
-        let dataUser = {};
 
-        dataUser.nom = nom;
-        dataUser.email = email;
+        db.users.findOne({
+            where: { email: req.body.email }
+        }).then(user => {
+            if (user) {
+                return res.status(404).json(`L'adresse email existe déjà, veuillez entrer une autre`);
+            } else {
+                let dataUser = {};
 
-        const password = await bcrypt.hash(req.body.password ? req.body.password : "1234",
-            req.body.password ? 10 : 10);
-        dataUser.password = password;
-        dataUser.role = 'partenaire';
+                dataUser.nom = nom;
+                dataUser.email = email;
 
-        User.create(dataUser).then(value => {
-            let message = `Utilisateur créé avec succès`;
-            res.status(200).json({ message: message, data: value });
+                dataUser.password = password;
+                dataUser.role = 'partenaire';
+
+                User.create(dataUser).then(value => {
+                    let message = `Utilisateur créé avec succès`;
+                    res.status(200).json({ message: message, data: value });
+                }).catch(err => {
+                    if (err instanceof ValidationError) {
+                        return res.status(400).json({
+                            message: err.message.split(",\n")
+                        })
+                    }
+
+                    if (err instanceof UniqueConstraintError) {
+                        return res.status(400).json({
+                            message: err.message
+                        })
+                    }
+                })
+            }
         }).catch(err => {
-            if (err instanceof ValidationError) {
-                return res.status(400).json({
-                    message: err.message.split(",\n")
-                })
-            }
-
-            if (err instanceof UniqueConstraintError) {
-                return res.status(400).json({
-                    message: err.message
-                })
-            }
+            return res.status(404).json(`Remplir tous les champs svp`);
         })
     }
 }
