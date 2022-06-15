@@ -11,6 +11,8 @@ router.get('/v1/categories', auth, transactionController.getAllTransactionsAndCa
 
 router.get('/v1/users', auth, transactionController.getAllTransactionsUsers);
 
+router.get('/v1/partenaires', auth, transactionController.getPartenairesTransactions);
+
 router.post('/', auth, transactionController.addTransaction);
 
 router.delete('/:id', auth, transactionController.deleteTransaction);

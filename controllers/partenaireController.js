@@ -57,6 +57,19 @@ const getPartenairesAndCategories = async (req, res) => {
     res.status(200).json({ data })
 }
 
+// Get all partenaires et leurs comptes
+
+const getAllParteniresAndComptes = async (req, res) => {
+    const data = await Partenaire.findAll({
+        include: [{
+            model: db.comptes,
+            as: 'comptes'
+        }],
+    })
+
+    res.status(200).json({ data })
+}
+
 const getOnePartenaire = async (req, res) => {
 
     let id = req.params.id;
@@ -95,5 +108,6 @@ module.exports = {
     getAllPartenaires,
     addPartenaire,
     getPartenairesAndCategories,
-    getOnePartenaire
+    getOnePartenaire, 
+    getAllParteniresAndComptes
 }

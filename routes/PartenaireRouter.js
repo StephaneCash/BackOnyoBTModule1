@@ -9,6 +9,8 @@ router.get('/:id', auth, partenaireController.getOnePartenaire);
 
 router.get('/v1/categories', auth, partenaireController.getPartenairesAndCategories);
 
+router.get('/v1/comptes', auth, partenaireController.getAllParteniresAndComptes);
+
 router.post('/', auth, partenaireController.addPartenaire);
 
 router.delete('/:id', auth, partenaireController.deletePartenaire);

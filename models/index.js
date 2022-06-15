@@ -37,7 +37,7 @@ db.users = require("./userModel.js")(sequelize, DataTypes);
 db.categories = require("./categorieTransfertModel.js")(sequelize, DataTypes);
 db.generates = require('./generateurCode.js')(sequelize, DataTypes);
 db.partenaires = require('./partenaireModel.js')(sequelize, DataTypes);
-
+db.comptes = require('./compteModel.js')(sequelize, DataTypes)
 
 db.sequelize.sync({ force: false }).then(() => {
     console.log('Mdels synchronisés ')
@@ -74,6 +74,28 @@ db.categories.hasMany(db.partenaires, {
 db.partenaires.belongsTo(db.categories, {
     foreignKey: 'partenaireId',
     as: 'categories'
+})
+
+// RELATION 1-N comptes partenaires
+
+db.partenaires.hasMany(db.comptes, {
+    as: 'comptes'
+})
+
+db.comptes.belongsTo(db.partenaires, {
+    foreignKey: 'partenaireId',
+    as: 'partenaires'
+})
+
+// RELATION 1-N Partenaires Transaction
+
+db.partenaires.hasMany(db.transactions, {
+    as: 'transactions',
+})
+
+db.transactions.belongsTo(db.partenaires, {
+    foreignKey: 'partenaireId',
+    as: 'partenaires'
 })
 
 module.exports = db

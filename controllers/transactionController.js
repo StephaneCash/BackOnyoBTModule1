@@ -27,11 +27,24 @@ const getAllTransactionsUsers = async (req, res) => {
     res.status(200).json({ status: 200, data: data })
 }
 
+// Get Transaction categories
+
 const getAllTransactionsAndCategories = async (req, res) => {
     const data = await Transaction.findAll({
         include: [{
             model: db.categories,
             as: 'categories'
+        }]
+    })
+
+    res.status(200).json({ data })
+}
+
+const getPartenairesTransactions = async (req, res) => {
+    const data = await Transaction.findAll({
+        include: [{
+            model: db.partenaires,
+            as: 'partenaires'
         }]
     })
 
@@ -134,6 +147,7 @@ module.exports = {
     getOneTransaction,
     deleteTransaction,
     getAllTransactionsAndCategories,
-    getAllTransactionsUsers
+    getAllTransactionsUsers, 
+    getPartenairesTransactions
 }
 

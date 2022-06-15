@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define("users", {
+    const Compte = sequelize.define("comptes", {
         nom: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -8,34 +8,26 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Nom est un champ obligatoire !" }
             }
         },
-        email: {
+        devise: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Email est un champ obligatoire !" }
+                notNull: { msg: "Devise est un champ obligatoire !" }
             }
         },
-        password: {
+        montant: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Password est un champ obligatoire !" }
+                notNull: { msg: "Montant est un champ obligatoire !" }
             }
         },
         statut: {
             type: DataTypes.INTEGER,
-        },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-            }
         }
     })
 
-    return User
+    return Compte
 }
