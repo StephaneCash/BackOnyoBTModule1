@@ -9,12 +9,14 @@ const addVideo = async (req, res) => {
 
     const nom = req.body.nom;
     const content = req.body.content;
+    const prix = req.body.prix;
 
     let dataVideo = {};
 
     dataVideo.nom = nom;
     dataVideo.content = content;
     dataVideo.statut = 0;
+    dataVideo.prix = prix;
 
     Video.create(dataVideo).then(value => {
         let message = `Vidéo créée avec succès`;
