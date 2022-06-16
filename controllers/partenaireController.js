@@ -14,7 +14,10 @@ const addPartenaire = async (req, res) => {
 
     dataPartenaire.nom = nom;
     dataPartenaire.description = description;
+    dataPartenaire.numTel = req.body.numTel;
+    dataPartenaire.adresse = req.body.adresse;;
     dataPartenaire.statut = 0;
+
 
     let user = await db.users.findAll({
         limit: 1,
@@ -23,7 +26,7 @@ const addPartenaire = async (req, res) => {
 
     let id = user[0].id
 
-    if (user[0].role === 'partenaire') {
+    if (user[0].role === 'Partenaire') {
         dataPartenaire.userId = id;
         Partenaire.create(dataPartenaire).then(value => {
             let message = `Partenaire créé avec succès`;

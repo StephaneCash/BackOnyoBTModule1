@@ -65,7 +65,7 @@ const addUserBoutique = async (req, res) => {
 
     let id = user[0].id
 
-    if (user[0].role === 'user-streaming') {
+    if (user[0].role === 'User-streaming') {
         dataUserBoutique.userId = id;
         UserBoutique.create(dataUserBoutique).then(value => {
             let message = `Utilisateur stream créé avec succès`;

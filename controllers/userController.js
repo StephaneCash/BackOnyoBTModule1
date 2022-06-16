@@ -34,6 +34,7 @@ const addUser = async (req, res) => {
 
                 dataUser.password = password;
                 dataUser.role = req.body.role;
+                dataUser.statut = 0;
 
                 User.create(dataUser).then(value => {
                     let message = `Utilisateur créé avec succès`;

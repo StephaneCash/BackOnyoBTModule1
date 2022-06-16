@@ -8,17 +8,26 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Nom est un champ obligatoire !" }
             }
         },
-        description: {
+        numTel: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Description est un champ obligatoire !" }
+                notNull: { msg: "Numéro de téléphone est un champ obligatoire !" }
+            }
+        },
+        adresse: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
+                notNull: { msg: "Adresse est un champ obligatoire !" }
             }
         },
         statut: {
             type: DataTypes.INTEGER,
         },
+
     })
 
     return Partenaire

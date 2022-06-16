@@ -47,7 +47,7 @@ const addCompte = async (req, res) => {
 
     let id = user[0].id
 
-    if (user[0].role === 'partenaire') {
+    if (user[0].role === 'Partenaire') {
         dataCompte.partenaireId = id;
         Compte.create(dataCompte).then(value => {
             let message = `Compte créée avec succès`;
