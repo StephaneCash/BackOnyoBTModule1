@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         statut: {
             type: DataTypes.INTEGER,
         },
+        prix: {
+            type: DataTypes.INTEGER,
+        }
 
     })
 
