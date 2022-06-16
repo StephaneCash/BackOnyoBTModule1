@@ -26,7 +26,7 @@ const getAllComptesAndPartenaires = async (req, res) => {
 
 // 2. Création d'un compte
 
-const addCompte = (req, res) => {
+const addCompte = async (req, res) => {
 
     let dataCompte = {}
 
@@ -40,22 +40,50 @@ const addCompte = (req, res) => {
     dataCompte.status = statut;
     dataCompte.montant = montant;
 
-    Compte.create(dataCompte).then(value => {
-        let message = `Compte créée avec succès`;
-        res.status(200).json({ message: message, data: value });
-    }).catch(err => {
-        if (err instanceof ValidationError) {
-            return res.status(400).json({
-                message: err.message.split(",\n")
-            })
-        }
-
-        if (err instanceof UniqueConstraintError) {
-            return res.status(400).json({
-                message: err.message
-            })
-        }
+    let user = await db.users.findAll({
+        limit: 1,
+        order: [['id', 'DESC']]
     })
+
+    let id = user[0].id
+
+    if (user[0].role === 'partenaire') {
+        dataCompte.partenaireId = id;
+        Compte.create(dataCompte).then(value => {
+            let message = `Compte créée avec succès`;
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
+
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+    } else {
+        dataCompte.partenaireId = id;
+        Compte.create(dataCompte).then(value => {
+            let message = `Compte créée avec succès`;
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
+
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+    }
 }
 
 // 3. Récupération d'un compte
