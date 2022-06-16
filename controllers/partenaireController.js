@@ -41,6 +41,10 @@ const addPartenaire = async (req, res) => {
                 })
             }
         })
+    } else {
+        return res.status(400).json({
+            message: 'Erreur ! Le rôle doit être partenaire'
+        })
     }
 }
 

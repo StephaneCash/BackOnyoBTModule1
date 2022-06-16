@@ -38,7 +38,7 @@ const getAllUsersBoutiquesAndVideos = async (req, res) => {
 
 // 2. Création d'un userBoutique
 
-const addUserBoutique = (req, res) => {
+const addUserBoutique = async (req, res) => {
 
     let dataUserBoutique = {};
 
@@ -52,25 +52,38 @@ const addUserBoutique = (req, res) => {
     dataUserBoutique.date_naissance = date_naissance;
     dataUserBoutique.sexe = sexe;
     dataUserBoutique.statut = 0;
-    
 
-    UserBoutique.create(dataUserBoutique).then(value => {
-        let message = `Utilisateur stream créé avec succès`;
-        
-        res.status(200).json({ message: message, data: value });
-    }).catch(err => {
-        if (err instanceof ValidationError) {
-            return res.status(400).json({
-                message: err.message.split(",\n")
-            })
-        }
-
-        if (err instanceof UniqueConstraintError) {
-            return res.status(400).json({
-                message: err.message
-            })
-        }
+    let user = await db.users.findAll({
+        limit: 1,
+        order: [['id', 'DESC']]
     })
+
+    let id = user[0].id
+
+    if (user[0].role === 'user-streaming') {
+        dataUserBoutique.userId = id;
+        UserBoutique.create(dataUserBoutique).then(value => {
+            let message = `Utilisateur stream créé avec succès`;
+
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
+
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+    } else {
+        return res.status(400).json({
+            message: "Erreur !! Le rôle doit être user-streaming"
+        })
+    }
 }
 
 // 3. Récupération d'un UserBoutique
