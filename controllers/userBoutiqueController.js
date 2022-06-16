@@ -10,7 +10,12 @@ const UserBoutique = db.usersboutiques;
 
 const getAllUsersBoutiques = async (req, res) => {
 
-    const data = await UserBoutique.findAll();
+    const data = await UserBoutique.findAll({
+        include: [{
+            model: db.comptes,
+            as: 'comptes'
+        }]
+    });
     res.status(200).json({ status: 200, data: data })
 }
 
