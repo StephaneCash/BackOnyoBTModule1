@@ -16,23 +16,32 @@ const addPartenaire = async (req, res) => {
     dataPartenaire.description = description;
     dataPartenaire.statut = 0;
 
-
-    Partenaire.create(dataPartenaire).then(value => {
-        let message = `Partenaire créé avec succès`;
-        res.status(200).json({ message: message, data: value });
-    }).catch(err => {
-        if (err instanceof ValidationError) {
-            return res.status(400).json({
-                message: err.message.split(",\n")
-            })
-        }
-
-        if (err instanceof UniqueConstraintError) {
-            return res.status(400).json({
-                message: err.message
-            })
-        }
+    let user = await db.users.findAll({
+        limit: 1,
+        order: [['id', 'DESC']]
     })
+
+    let id = user[0].id
+
+    if (user[0].role === 'partenaire') {
+        dataPartenaire.userId = id;
+        Partenaire.create(dataPartenaire).then(value => {
+            let message = `Partenaire créé avec succès`;
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
+
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+    }
 }
 
 // Get all partenaires
@@ -64,7 +73,11 @@ const getAllParteniresAndComptes = async (req, res) => {
         include: [{
             model: db.comptes,
             as: 'comptes'
-        }],
+        }, {
+            model: db.users,
+            as: 'users'
+        }
+        ],
     })
 
     res.status(200).json({ data })
@@ -108,6 +121,6 @@ module.exports = {
     getAllPartenaires,
     addPartenaire,
     getPartenairesAndCategories,
-    getOnePartenaire, 
+    getOnePartenaire,
     getAllParteniresAndComptes
 }

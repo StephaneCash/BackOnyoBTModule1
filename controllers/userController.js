@@ -60,7 +60,16 @@ const addUser = async (req, res) => {
 
 // Get all users
 const getAllUsers = async (req, res) => {
-    const data = await User.findAll();
+    const data = await User.findAll({
+        include: [{
+            model: db.usersboutiques,
+            as: 'usersboutiques'
+        },
+        {
+            model: db.partenaires,
+            as: 'partenaires'
+        }],
+    });
 
     res.status(200).json({ data })
 }

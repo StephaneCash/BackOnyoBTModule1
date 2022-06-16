@@ -124,4 +124,15 @@ db.comptes.belongsTo(db.usersboutiques, {
     as: 'usersboutiques'
 })
 
+// RELATION 1-N users partenaires
+
+db.users.hasMany(db.partenaires, {
+    as: 'partenaires'
+})
+
+db.partenaires.belongsTo(db.users, {
+    foreignKey: 'userId',
+    as: 'users'
+})
+
 module.exports = db

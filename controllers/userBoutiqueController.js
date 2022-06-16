@@ -56,6 +56,7 @@ const addUserBoutique = (req, res) => {
 
     UserBoutique.create(dataUserBoutique).then(value => {
         let message = `Utilisateur stream créé avec succès`;
+        
         res.status(200).json({ message: message, data: value });
     }).catch(err => {
         if (err instanceof ValidationError) {
