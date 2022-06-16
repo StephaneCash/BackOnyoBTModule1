@@ -104,6 +104,14 @@ db.usersboutiques.belongsTo(db.users, {
     as: 'users'
 })
 
-// RELATION 1-N usersboutiques vidéos 
+// RELATION 1-N usersboutiques vidéos
+db.usersboutiques.hasMany(db.videos, {
+    as: 'videos'
+})
+
+db.videos.belongsTo(db.usersboutiques, {
+    foreignKey: 'usersboutiqueId',
+    as: 'usersboutiques'
+})
 
 module.exports = db

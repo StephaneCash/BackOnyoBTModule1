@@ -24,6 +24,12 @@ app.use('/api/partenaires', paternaireRouter);
 const compteRouter = require('./routes/CompteRouter.js');
 app.use('/api/comptes', compteRouter);
 
+const userStreamingRouter = require('./routes/UserBoutiqueRouter.js');
+app.use('/api/users-streaming', userStreamingRouter);
+
+const videoRouter = require('./routes/VideoRouter.js');
+app.use('/api/videos', videoRouter);
+
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);
 require('./routes/Login.js')(app);

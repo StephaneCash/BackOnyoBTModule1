@@ -9,6 +9,8 @@ router.get('/:id', auth, userBoutiqueController.getOneUserBoutique);
 
 router.get('/v1/users', auth, userBoutiqueController.getAllUsersBoutiquesAndUsers);
 
+router.get('/v1/videos', auth, userBoutiqueController.getAllUsersBoutiquesAndVideos);
+
 router.post('/', userBoutiqueController.addUserBoutique);
 
 router.delete('/:id', auth, userBoutiqueController.deleteUserBoutique);

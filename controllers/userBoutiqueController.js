@@ -25,6 +25,17 @@ const getAllUsersBoutiquesAndUsers = async (req, res) => {
     res.status(200).json({ status: 200, data: data })
 }
 
+const getAllUsersBoutiquesAndVideos = async (req, res) => {
+    const data = await UserBoutique.findAll({
+        include: [{
+            model: db.videos,
+            as: 'videos'
+        }],
+    })
+
+    res.status(200).json({ status: 200, data: data })
+}
+
 // 2. Création d'un userBoutique
 
 const addUserBoutique = (req, res) => {
@@ -94,7 +105,6 @@ const deleteUserBoutique = async (req, res) => {
 
 }
 
-
 module.exports = {
     deleteUserBoutique,
     updateUserBoutique,
@@ -102,5 +112,6 @@ module.exports = {
     addUserBoutique,
     getAllUsersBoutiques,
     getAllUsersBoutiquesAndUsers,
+    getAllUsersBoutiquesAndVideos
 }
 

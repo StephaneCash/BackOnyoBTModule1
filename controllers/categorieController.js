@@ -4,7 +4,7 @@ const { ValidationError, UniqueConstraintError } = require('sequelize')
 // Model
 const Categorie = db.categories;
 
-//Add un user
+//Add une catégorie
 const addCategorie = async (req, res) => {
 
     const nom = req.body.nom;
