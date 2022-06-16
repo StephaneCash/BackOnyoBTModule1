@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define("users", {
+    const UserBoutique = sequelize.define("usersboutiques", {
         nom: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -8,33 +8,35 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Nom est un champ obligatoire !" }
             }
         },
-        email: {
+        prenom: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Email est un champ obligatoire !" }
+                notEmpty: { msg: "Le champ 'Cotent_code' est vide, veuillez remplir ce champ svp" },
+                notNull: { msg: "Prénom est un champ obligatoire !" }
             }
         },
-        password: {
+        date_naissance: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Password est un champ obligatoire !" }
+                notNull: { msg: "Date de naissance vidéo est un champ obligatoire !" }
+            }
+        },
+        sexe: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: { msg: "Le champ 'Cotent_code' est vide, veuillez remplir ce champ svp" },
+                notNull: { msg: "Sexe est un champ obligatoire !" }
             }
         },
         statut: {
             type: DataTypes.INTEGER,
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },
-            }
-        }
+
     })
 
-    return User
+    return UserBoutique
 }
