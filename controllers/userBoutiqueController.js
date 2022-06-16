@@ -52,6 +52,7 @@ const addUserBoutique = (req, res) => {
     dataUserBoutique.date_naissance = date_naissance;
     dataUserBoutique.sexe = sexe;
     dataUserBoutique.statut = 0;
+    
 
     UserBoutique.create(dataUserBoutique).then(value => {
         let message = `Utilisateur stream créé avec succès`;

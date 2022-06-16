@@ -70,7 +70,7 @@ db.categories.hasMany(db.partenaires, {
 })
 
 db.partenaires.belongsTo(db.categories, {
-    foreignKey: 'partenaireId',
+    foreignKey: 'categoryId',
     as: 'categories'
 })
 
@@ -110,6 +110,16 @@ db.usersboutiques.hasMany(db.videos, {
 })
 
 db.videos.belongsTo(db.usersboutiques, {
+    foreignKey: 'usersboutiqueId',
+    as: 'usersboutiques'
+})
+
+// RELATION 1-N Comptes UsersBoutiques
+db.usersboutiques.hasMany(db.comptes, {
+    as: 'comptes'
+})
+
+db.comptes.belongsTo(db.usersboutiques, {
     foreignKey: 'usersboutiqueId',
     as: 'usersboutiques'
 })

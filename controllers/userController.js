@@ -33,7 +33,7 @@ const addUser = async (req, res) => {
                 dataUser.email = email;
 
                 dataUser.password = password;
-                dataUser.role = 'partenaire';
+                dataUser.role = req.body.role;
 
                 User.create(dataUser).then(value => {
                     let message = `Utilisateur créé avec succès`;
