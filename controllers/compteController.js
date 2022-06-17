@@ -33,7 +33,7 @@ const addCompte = async (req, res) => {
     let nom = req.body.nom;
     let statut = 0;
     let devise = req.body.devise;
-    let montant = req.body.montant;
+    let montant = req.body.montant ? req.body.montant : 0;
 
     dataCompte.nom = nom;
     dataCompte.devise = devise;
