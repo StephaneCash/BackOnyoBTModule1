@@ -31,16 +31,14 @@ const addCompte = async (req, res) => {
     let dataCompte = {}
 
     let nom = req.body.nom;
-    let statut = 0;
-    let devise = req.body.devise;
     let montant = req.body.montant ? req.body.montant : 0;
 
     dataCompte.nom = nom;
-    dataCompte.devise = devise;
-    dataCompte.status = statut;
+    dataCompte.devise = 'OBT';
+    dataCompte.statut = 0;
     dataCompte.montant = montant;
 
-    let user = await db.users.findAll({
+    let user = await db.partenaires.findAll({
         limit: 1,
         order: [['id', 'DESC']]
     })

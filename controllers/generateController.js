@@ -75,7 +75,7 @@ const getOneCode = async (req, res) => {
     }
     res.status(200).json({ message: 'Le code ' + id + ' a été trouvé avec succès', data: code });
 }
- 
+
 // 5. Supprimer un user
 
 const deleteCode = async (req, res) => {
@@ -91,9 +91,19 @@ const deleteCode = async (req, res) => {
 
 }
 
+const viderCode = async (req, res) => {
+    let code = await Generate.destroy({ where: {}, cascade: true });
+    if (code) {
+        res.status(200).json({ message: 'L\'espace a été libéré avec succès', });
+    } else {
+        res.status(404).json({ message: 'L\espace n\'a pas été libéré' });
+    }
+}
+
 module.exports = {
     addGenerate,
     getAllCodes,
     getOneCode,
-    deleteCode
+    deleteCode,
+    viderCode
 }

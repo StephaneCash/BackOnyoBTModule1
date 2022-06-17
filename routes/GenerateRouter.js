@@ -11,4 +11,6 @@ router.post('/', generateController.addGenerate);
 
 router.delete('/:id', auth, generateController.deleteCode);
 
+router.delete('/', auth, generateController.viderCode)
+
 module.exports = router;
