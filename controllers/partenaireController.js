@@ -17,7 +17,7 @@ const addPartenaire = async (req, res) => {
     dataPartenaire.numTel = req.body.numTel;
     dataPartenaire.adresse = req.body.adresse;;
     dataPartenaire.statut = 0;
-
+    dataPartenaire.categoryId = req.body.categoryId;
 
     let user = await db.users.findAll({
         limit: 1,

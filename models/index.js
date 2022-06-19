@@ -58,7 +58,7 @@ db.transactions.belongsTo(db.users, {
 
 // RELATION 1-N 
 db.prices.hasMany(db.videos, {
-    as: 'prices'
+    as: 'videos'
 })
 
 db.videos.belongsTo(db.prices, {
