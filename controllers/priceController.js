@@ -1,0 +1,67 @@
+const db = require('../models');
+const { ValidationError, UniqueConstraintError } = require('sequelize')
+const bcrypt = require('bcrypt');
+
+// Model
+const Prix = db.prices;
+
+//Add un user
+const addPrix = async (req, res) => {
+
+    const montant = req.body.montant;
+    const description = req.body.description;
+
+    Prix.create(montant, description).then(value => {
+        let message = `Prix créé avec succès`;
+        res.status(200).json({ message: message, data: value });
+    }).catch(err => {
+        if (err instanceof ValidationError) {
+            return res.status(400).json({
+                message: err.message.split(",\n")
+            })
+        }
+
+        if (err instanceof UniqueConstraintError) {
+            return res.status(400).json({
+                message: err.message
+            })
+        }
+    })
+
+}
+
+// Get all prix
+const getAllPrix = async (req, res) => {
+    const data = await Prix.findAll({
+        include: [{
+            model: db.videos,
+            as: 'videos'
+        }]
+    });
+
+    res.status(200).json({ data })
+}
+
+// 4. Mis à jour du prix
+const updatePrix = async (req, res) => {
+
+    let id = req.params.id;
+    const user = await Prix.update(req.body, { where: { id: id } })
+    res.status(200).json({ message: 'Le prix ' + id + ' a été modifié avec succès', data: user });
+
+}
+// 5. Supprimer un prix
+const deletePrix = async (req, res) => {
+
+    let id = req.params.id;
+    let prix = await Prix.destroy({ where: { id: id } });
+    res.status(200).json({ message: 'Le prix ' + id + ' a été supprimé avec succès', data: prix });
+
+}
+
+module.exports = {
+    deletePrix,
+    updatePrix,
+    getAllPrix,
+    addPrix,
+}

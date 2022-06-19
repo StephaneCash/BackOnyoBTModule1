@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: { msg: "Le champ 'Cotent_code' est vide, veuillez remplir ce champ svp" },
+                notEmpty: { msg: "Le champ nom est vide" },
                 notNull: { msg: "Nom est un champ obligatoire !" }
             }
         },
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: { msg: "Ce champ est vide, veuillez remplir ce champ svp" },
+                notEmpty: { msg: "La description est vide, veuillez remplir ce champ svp" },
                 notNull: { msg: "La description est un champ obligatoire !" }
             }
         },

@@ -3,6 +3,7 @@ const { ValidationError, UniqueConstraintError } = require('sequelize')
 
 // Model
 const Generate = db.generates;
+const CodesCopies = db.codescopies;
 
 //Add un user
 const addGenerate = async (req, res) => {
@@ -36,6 +37,12 @@ const addGenerate = async (req, res) => {
         if (montant) {
             dateGenerate.content = montant + '.' + codeGenere;
         }
+
+        CodesCopies.create(dateGenerate).then(value => {
+            console.log("Codes copiés avec succès")
+        }).catch(err => {
+            console.log(err)
+        })
 
         Generate.create(dateGenerate).then(value => {
             let message = `Code créé avec succès`;
