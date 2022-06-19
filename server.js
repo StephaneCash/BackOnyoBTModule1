@@ -34,7 +34,10 @@ const codesCopiesRouter = require('./routes/CodesCopiesRouter.js');
 app.use('/api/codesCopies', codesCopiesRouter);
 
 const prixVideoRouter = require('./routes/PrixVideosRouter.js');
-app.use('/api/prix-videos', prixVideoRouter)
+app.use('/api/prix-videos', prixVideoRouter);
+
+const conferencesRouter = require('./routes/ConferenceRouter.js');
+app.use('/api/conferences', conferencesRouter);
 
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);

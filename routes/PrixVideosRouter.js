@@ -9,6 +9,6 @@ router.post('/', auth, priceController.addPrix);
 
 router.delete('/:id', auth, priceController.deletePrix);
 
-router.put('/:id', auth, priceController.deletePrix);
+router.put('/:id', auth, priceController.updatePrix);
 
 module.exports = router;

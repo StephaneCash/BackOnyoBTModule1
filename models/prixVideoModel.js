@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             validate: {
                 notEmpty: { msg: "La description est vide, veuillez remplir ce champ svp" },
-                notNull: { msg: "Le montant est un champ obligatoire !" }
+                notNull: { msg: "Le description est un champ obligatoire !" }
             }
         },
         montant: {

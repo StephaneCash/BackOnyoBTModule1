@@ -7,6 +7,6 @@ router.get('/', auth, codesCopiesController.getAllCodes);
 
 router.get('/:id', auth, codesCopiesController.getOneCode);
 
-router.delete('/', auth, codesCopiesController.deleteCode);
+router.delete('/:id', auth, codesCopiesController.deleteCode);
 
 module.exports = router;

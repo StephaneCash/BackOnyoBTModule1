@@ -41,9 +41,21 @@ db.videos = require('./videoModel.js')(sequelize, DataTypes);
 db.usersboutiques = require('./userBoutiqueModel.js')(sequelize, DataTypes);
 db.codescopies = require('./codeCopiesModel')(sequelize, DataTypes);
 db.prices = require('./prixVideoModel.js')(sequelize, DataTypes);
+db.conferences = require('./conferenceModel.js')(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
     console.log('Mdels synchronisés ')
+})
+
+// RELATION 1-N users - conférences
+
+db.users.hasMany(db.conferences, {
+    as: 'conferences',
+})
+
+db.conferences.belongsTo(db.users, {
+    foreignKey: 'userId',
+    as: 'users'
 })
 
 // RELATION 1-N TRANSACTIONS-USERS

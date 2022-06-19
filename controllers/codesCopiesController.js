@@ -7,7 +7,11 @@ const CodesCopies = db.codescopies;
 const getAllCodes = async (req, res) => {
     const data = await CodesCopies.findAll();
 
-    res.status(200).json({ data })
+    if (!data) {
+        res.status(200).json({ message: "Pas de données disponibles" })
+    } else {
+        res.status(200).json({ data })
+    }
 }
 
 // Get One Code
@@ -26,13 +30,10 @@ const getOneCode = async (req, res) => {
 // 5. Supprimer un code après qu'il ait été utilisé
 
 const deleteCode = async (req, res) => {
+    let id = req.params.id;
+    const data = await CodesCopies.destroy({ where: { id: id } });
 
-    const data = await CodesCopies.findAll();
-
-    let taille = data.length;
-    setInterval(() => {
-        res.status(200).json(data[taille - 1]);
-    }, 10);
+    res.status(200).json({ message: "Code supprimé avec succès", data });
 }
 
 module.exports = {
