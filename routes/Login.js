@@ -8,13 +8,13 @@ module.exports = (app) => {
 
         let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-        if (req.body.email === "") {
+        if (!req.body.email) {
             const message = "Veuillez renseigner une adresse email.";
             return res.status(401).json({ message });
         } else if (req.body.password === '') {
             const message = "Veuillez renseigner un mot de passe.";
             return res.status(401).json({ message });
-        } else if (req.body.email.match(pattern)) {
+        } else if (req.body?.email?.match(pattern)) {
             db.users.findOne({
                 where: { email: req.body.email }
             }).then((user => {

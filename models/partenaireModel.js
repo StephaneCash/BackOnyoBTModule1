@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
         statut: {
             type: DataTypes.INTEGER,
         },
+        validate: {
+            type: DataTypes.INTEGER
+        }
 
     })
 

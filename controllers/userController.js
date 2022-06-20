@@ -10,8 +10,7 @@ const addUser = async (req, res) => {
 
     const nom = req.body.nom;
     const email = req.body.email;
-    const password = await bcrypt.hash(req.body.password ? req.body.password : "1234",
-        req.body.password ? 10 : 10);
+    const password = await bcrypt.hash(req.body?.password,10);
 
     if (nom === '') {
         return res.status(404).json('Veuillez fournir un nom svp');
