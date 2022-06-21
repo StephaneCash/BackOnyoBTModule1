@@ -58,6 +58,16 @@ db.conferences.belongsTo(db.users, {
     as: 'users'
 })
 
+// RELATION 1-N users comptes
+db.users.hasMany(db.comptes, {
+    as: 'comptes'
+})
+
+db.comptes.belongsTo(db.users, {
+    foreignKey: 'userId',
+    as: 'users'
+})
+
 // RELATION 1-N TRANSACTIONS-USERS
 db.users.hasMany(db.transactions, {
     as: 'transactions'

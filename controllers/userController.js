@@ -10,7 +10,7 @@ const addUser = async (req, res) => {
 
     const nom = req.body.nom;
     const email = req.body.email;
-    const password = await bcrypt.hash(req.body?.password,10);
+    const password = await bcrypt.hash(req.body?.password, 10);
 
     if (nom === '') {
         return res.status(404).json('Veuillez fournir un nom svp');
@@ -68,7 +68,12 @@ const getAllUsers = async (req, res) => {
         {
             model: db.partenaires,
             as: 'partenaires'
-        }],
+        },
+        {
+            model: db.comptes,
+            as: 'comptes'
+        }
+        ],
     });
 
     res.status(200).json({ data })

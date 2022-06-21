@@ -30,6 +30,8 @@ module.exports = (app) => {
                     }
 
                     let role = user.role
+                    let id = user.id;
+                    let nom = user.nom;
 
                     // Création du jéton pour chaque user avec jwt
                     const jeton = jwt.sign(
@@ -39,7 +41,7 @@ module.exports = (app) => {
                     )
 
                     const message = `L'utilisateur a été connecté avec succès`;
-                    return res.json({ message, jeton, role })
+                    return res.json({ message, jeton, role, id, nom, })
                 })
             }))
 

@@ -37,51 +37,24 @@ const addCompte = async (req, res) => {
     dataCompte.devise = 'OBT';
     dataCompte.statut = 0;
     dataCompte.montant = montant;
+    dataCompte.partenaireId = req.body.partenaireId;
 
-    let user = await db.partenaires.findAll({
-        limit: 1,
-        order: [['id', 'DESC']]
+    Compte.create(dataCompte).then(value => {
+        let message = `Compte créée avec succès`;
+        res.status(200).json({ message: message, data: value });
+    }).catch(err => {
+        if (err instanceof ValidationError) {
+            return res.status(400).json({
+                message: err.message.split(",\n")
+            })
+        }
+
+        if (err instanceof UniqueConstraintError) {
+            return res.status(400).json({
+                message: err.message
+            })
+        }
     })
-
-    let id = user[0].id
-
-    if (user[0].role === 'Partenaire') {
-        dataCompte.partenaireId = id;
-        Compte.create(dataCompte).then(value => {
-            let message = `Compte créée avec succès`;
-            res.status(200).json({ message: message, data: value });
-        }).catch(err => {
-            if (err instanceof ValidationError) {
-                return res.status(400).json({
-                    message: err.message.split(",\n")
-                })
-            }
-
-            if (err instanceof UniqueConstraintError) {
-                return res.status(400).json({
-                    message: err.message
-                })
-            }
-        })
-    } else {
-        dataCompte.partenaireId = id;
-        Compte.create(dataCompte).then(value => {
-            let message = `Compte créée avec succès`;
-            res.status(200).json({ message: message, data: value });
-        }).catch(err => {
-            if (err instanceof ValidationError) {
-                return res.status(400).json({
-                    message: err.message.split(",\n")
-                })
-            }
-
-            if (err instanceof UniqueConstraintError) {
-                return res.status(400).json({
-                    message: err.message
-                })
-            }
-        })
-    }
 }
 
 // 3. Récupération d'un compte
