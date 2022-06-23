@@ -39,6 +39,9 @@ app.use('/api/prix-videos', prixVideoRouter);
 const conferencesRouter = require('./routes/ConferenceRouter.js');
 app.use('/api/conferences', conferencesRouter);
 
+const viewRouter = require('./routes/VideoRouter.js');
+app.use('/api/views', viewRouter);
+
 const routerUser = require('./routes/UserRouter');
 app.use('/api/users', routerUser);
 require('./routes/Login.js')(app);

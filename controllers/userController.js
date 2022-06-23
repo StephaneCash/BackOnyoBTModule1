@@ -37,6 +37,13 @@ const addUser = async (req, res) => {
 
                 User.create(dataUser).then(value => {
                     let message = `Utilisateur créé avec succès`;
+                    db.comptes.create({
+                        userId: value.id,
+                        nom: 'Compte-OBT',
+                        devise: 'OBT',
+                        statut: 0,
+                        montant: 0
+                    })
                     res.status(200).json({ message: message, data: value });
                 }).catch(err => {
                     if (err instanceof ValidationError) {

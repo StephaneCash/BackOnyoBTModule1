@@ -41,7 +41,7 @@ module.exports = (app) => {
                     )
 
                     const message = `L'utilisateur a été connecté avec succès`;
-                    return res.json({ message, jeton, role, id, nom, })
+                    return res.json({ message, jeton, role, id, user, })
                 })
             }))
 

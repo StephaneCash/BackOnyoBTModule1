@@ -24,9 +24,9 @@ const addPartenaire = async (req, res) => {
         order: [['id', 'DESC']]
     })
 
-    let id = user[0].id
+    let id = user[0]?.id
 
-    if (user[0].role === 'Partenaire') {
+    if (user[0]?.role === 'Partenaire' || "Admin") {
         dataPartenaire.userId = id;
         Partenaire.create(dataPartenaire).then(value => {
             let message = `Partenaire créé avec succès`;
