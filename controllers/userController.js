@@ -103,6 +103,12 @@ const getOneUser = async (req, res) => {
     let id = req.params.id;
     let user = await User.findOne({
         where: { id: id },
+        include: [
+            {
+                model: db.comptes,
+                as: 'comptes'
+            }
+        ]
     })
     if (user === null) {
         res.status(404).json({ message: 'Aucun utilisateur n\'a été trouvé' });
