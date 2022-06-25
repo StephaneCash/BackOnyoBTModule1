@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         montant: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notEmpty: { msg: "Votre champ est vide, veuillez remplir ce champ svp" },

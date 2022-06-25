@@ -31,7 +31,7 @@ const addCompte = async (req, res) => {
     let dataCompte = {}
 
     let nom = req.body.nom;
-    let montant = req.body.montant ? req.body.montant : 0;
+    let montant = parseInt(req.body.montant) ? req.body.montant : 0;
 
     dataCompte.nom = nom;
     dataCompte.devise = 'OBT';

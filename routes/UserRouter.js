@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 router.get('/', auth, userController.getAllUsers);
 
-router.get('/:id', auth, userController.getOneUser);
+router.get('/:id', userController.getOneUser);
 
 router.get('/v1/transactions', auth, userController.getAllUsersAndTransactions);
 

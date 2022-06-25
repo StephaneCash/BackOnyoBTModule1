@@ -79,6 +79,10 @@ const getAllUsers = async (req, res) => {
         {
             model: db.comptes,
             as: 'comptes'
+        },
+        {
+            model: db.transactions,
+            as: 'transactions'
         }
         ],
     });

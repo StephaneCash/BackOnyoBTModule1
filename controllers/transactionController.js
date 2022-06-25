@@ -75,7 +75,7 @@ const addTransaction = (req, res) => {
 
     let numTel = req.body.numTel;
     let exp_name = req.body.exp_name;
-    let montant = req.body.montant;
+    let montant = parseInt(req.body.montant);
 
     dataTransaction.content_code = codeGenere;
     dataTransaction.reception = 0;
@@ -86,6 +86,7 @@ const addTransaction = (req, res) => {
     dataTransaction.statut = 0;
     dataTransaction.montant = montant;
     dataTransaction.categoryId = req.body.categoryId;
+    dataTransaction.userId = req.body.userId;
 
     Transaction.create(dataTransaction).then(value => {
         let message = `Transaction créée avec succès`;
