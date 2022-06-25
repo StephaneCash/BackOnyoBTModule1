@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Le montant est un champ obligatoire !" }
             }
         },
+        nom: {
+            type: DataTypes.STRING
+        }
     })
 
     return Prix

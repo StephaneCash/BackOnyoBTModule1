@@ -3,7 +3,7 @@ const auth = require('../auth/auth');
 
 const router = require('express').Router();
 
-router.get('/', auth, categorieController.getAllCategory);
+router.get('/', categorieController.getAllCategory);
 
 router.get('/:id', auth, categorieController.getOneCategory);
 
