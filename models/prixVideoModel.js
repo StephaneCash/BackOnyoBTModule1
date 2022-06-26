@@ -1,5 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
     const Prix = sequelize.define("prices", {
+        nom: {
+            type: DataTypes.STRING,
+        },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,

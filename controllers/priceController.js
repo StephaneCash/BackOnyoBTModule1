@@ -8,9 +8,11 @@ const Prix = db.prices;
 const addPrix = async (req, res) => {
 
     const description = req.body.description;
+    let nom = req.body.nom;
 
     let dataPrix = {}
     dataPrix.description = description;
+    dataPrix.nom = nom;
 
     if (req.body.montant === '' || isNaN(req.body.montant)) {
         return res.status(400).json({ message: 'Veuillez remplir le champ montant' });

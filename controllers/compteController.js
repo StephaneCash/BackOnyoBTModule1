@@ -33,10 +33,12 @@ const addCompte = async (req, res) => {
     let nom = req.body.nom;
     let montant = parseInt(req.body.montant) ? req.body.montant : 0;
 
+    let views = await db.views.findAll();
+
     dataCompte.nom = nom;
     dataCompte.devise = 'OBT';
     dataCompte.statut = 0;
-    dataCompte.montant = montant;
+    dataCompte.montant = montant || views.length;
     dataCompte.partenaireId = req.body.partenaireId;
 
     Compte.create(dataCompte).then(value => {
