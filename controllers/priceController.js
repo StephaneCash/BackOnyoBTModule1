@@ -12,7 +12,7 @@ const addPrix = async (req, res) => {
 
     let dataPrix = {}
     dataPrix.description = description;
-    dataPrix.nom = nom;
+    dataPrix.nom = nom; 
 
     if (req.body.montant === '' || isNaN(req.body.montant)) {
         return res.status(400).json({ message: 'Veuillez remplir le champ montant' });
