@@ -34,7 +34,11 @@ const getAllTransactionsAndCategories = async (req, res) => {
         include: [{
             model: db.categories,
             as: 'categories'
-        }]
+        }, {
+            model: db.users,
+            as: 'users'
+        }
+        ]
     })
 
     res.status(200).json({ data })
@@ -148,7 +152,7 @@ module.exports = {
     getOneTransaction,
     deleteTransaction,
     getAllTransactionsAndCategories,
-    getAllTransactionsUsers, 
+    getAllTransactionsUsers,
     getPartenairesTransactions
 }
 

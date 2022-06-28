@@ -7,6 +7,8 @@ router.get('/', auth, compteController.getAllComptes);
 
 router.get('/:id', auth, compteController.getOneCompte);
 
+router.put('/v1/calculs/:id', auth, compteController.calculs);
+
 router.get('/v1/partenaires', auth, compteController.getAllComptesAndPartenaires);
 
 router.post('/', auth, compteController.addCompte);

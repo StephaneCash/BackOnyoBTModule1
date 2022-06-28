@@ -1,4 +1,5 @@
 const db = require('../models');
+const { evaluate } = require('mathjs');
 const { ValidationError, UniqueConstraintError } = require('sequelize');
 
 //créer des modèles principaux
@@ -93,6 +94,84 @@ const deleteCompte = async (req, res) => {
 
 }
 
+// 6 Calculs du montant
+
+const calculs = async (req, res) => {
+    let montantCompte = parseInt(req.body.montantCompte);
+    let montantTransaction = parseInt(req.body.montant);
+    let id = parseInt(req.params.id);
+
+    if (montantCompte > montantTransaction) {
+
+        let montantT = evaluate(montantCompte - montantTransaction)
+        let compteUpdate = await Compte.update({ montant: montantT }, { where: { id: id } });
+
+        let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let passwordLengh = 16;
+        let password = "";
+    
+        for (let i = 0; i <= passwordLengh; i++) {
+            let randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber + 1);
+        }
+    
+        let tab = password.split('');
+        tab[4] = '-';
+        tab[9] = '-';
+        tab[14] = '-';
+    
+        let codeGenere = tab.join().replace(/[,]/g, '');
+    
+        let dataTransaction = {};
+    
+        let numTel = req.body.numTel;
+        let exp_name = req.body.exp_name;
+    
+        dataTransaction.content_code = codeGenere;
+        dataTransaction.reception = 0;
+        dataTransaction.numTel = numTel;
+        dataTransaction.annulation = 0;
+        dataTransaction.devise = 'OBT';
+        dataTransaction.exp_name = exp_name;
+        dataTransaction.statut = 0;
+        dataTransaction.montant = montantTransaction;
+        dataTransaction.categoryId = req.body.categoryId;
+        dataTransaction.userId = req.body.userId;
+    
+        db.transactions.create(dataTransaction).then(value => {
+            let message = `Transaction créée avec succès`;
+            res.status(200).json({ message: message, data: value });
+        }).catch(err => {
+            if (err instanceof ValidationError) {
+                return res.status(400).json({
+                    message: err.message.split(",\n")
+                })
+            }
+    
+            if (err instanceof UniqueConstraintError) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+        })
+
+        if (compteUpdate) {
+            res.status(200).json({
+                message: 'Transaction effectuée avec succès ',
+                data: compteUpdate
+            });
+        } else {
+            res.status(200).json({
+                message: 'La transaction n\'a pas abouti.'
+            });
+        }
+    } else {
+        res.status(200).json({
+            message: `La transaction n'a pas abouti, car votre solde est insuffisant ${montantCompte} < ${montantTransaction}`,
+        });
+    }
+}
+
 
 module.exports = {
     deleteCompte,
@@ -100,6 +179,7 @@ module.exports = {
     getOneCompte,
     getAllComptes,
     addCompte,
-    getAllComptesAndPartenaires
+    getAllComptesAndPartenaires,
+    calculs
 }
 

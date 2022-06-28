@@ -11,7 +11,7 @@ router.get('/v1/categories', auth, partenaireController.getPartenairesAndCategor
 
 router.get('/v1/comptes', auth, partenaireController.getAllParteniresAndComptes);
 
-router.post('/', auth, partenaireController.addPartenaire);
+router.post('/', partenaireController.addPartenaire);
 
 router.delete('/:id', auth, partenaireController.deletePartenaire);
 

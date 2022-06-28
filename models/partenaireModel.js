@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "Adresse est un champ obligatoire !" }
             }
         },
+        pays:{
+            type: DataTypes.STRING
+        },
         photo: {
             type: DataTypes.STRING,
         },
