@@ -132,9 +132,9 @@ const calculs = async (req, res) => {
         dataTransaction.numTel = numTel;
         dataTransaction.annulation = 0;
         dataTransaction.devise = 'OBT';
-        dataTransaction.exp_name = exp_name;
+        dataTransaction.exp_name = exp_name; 
         dataTransaction.statut = 0;
-        dataTransaction.montant = montantTransaction;
+        dataTransaction.montant = montantTransaction; 
         dataTransaction.categoryId = req.body.categoryId;
         dataTransaction.userId = req.body.userId;
     
