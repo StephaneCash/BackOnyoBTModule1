@@ -122,7 +122,7 @@ const calculs = async (req, res) => {
     
         let codeGenere = tab.join().replace(/[,]/g, '');
     
-        let dataTransaction = {};
+        let dataTransaction = {}; 
     
         let numTel = req.body.numTel;
         let exp_name = req.body.exp_name;
